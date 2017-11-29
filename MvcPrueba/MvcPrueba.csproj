@@ -153,11 +153,26 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HwController.cs" />
     <Compile Include="Controllers\MoviesController.cs" />
+    <Compile Include="Controllers\PeopleController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201711291145490_InitialCreate.cs" />
+    <Compile Include="Migrations\201711291145490_InitialCreate.Designer.cs">
+      <DependentUpon>201711291145490_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711291505389_Rating.cs" />
+    <Compile Include="Migrations\201711291505389_Rating.Designer.cs">
+      <DependentUpon>201711291505389_Rating.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711291531139_DataAnnotations.cs" />
+    <Compile Include="Migrations\201711291531139_DataAnnotations.Designer.cs">
+      <DependentUpon>201711291531139_DataAnnotations.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Contact.cs" />
     <Compile Include="Models\Movie.cs" />
+    <Compile Include="Models\Person.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -232,6 +247,11 @@
     <Content Include="Views\Movies\Details.cshtml" />
     <Content Include="Views\Movies\Edit.cshtml" />
     <Content Include="Views\Movies\Index.cshtml" />
+    <Content Include="Views\People\Create.cshtml" />
+    <Content Include="Views\People\Delete.cshtml" />
+    <Content Include="Views\People\Details.cshtml" />
+    <Content Include="Views\People\Edit.cshtml" />
+    <Content Include="Views\People\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -240,6 +260,17 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.2.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.2.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201711291145490_InitialCreate.resx">
+      <DependentUpon>201711291145490_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711291505389_Rating.resx">
+      <DependentUpon>201711291505389_Rating.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711291531139_DataAnnotations.resx">
+      <DependentUpon>201711291531139_DataAnnotations.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
