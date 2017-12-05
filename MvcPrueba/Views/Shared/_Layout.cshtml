@@ -1,12 +1,19 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - MVC Prueba</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    <!-- gigya.js script should only be included once -->
+    <script type="text/javascript" src="http://cdn.gigya.com/js/gigya.js?apiKey=3_qh2-rL1Nm_DVRDkaNjeIwGY4L5SVHmlowSf5LHFfnsi9AiEK6c4TbUIyiQ85NmfX">
+        {
+            siteName: 'asdf',
+            enabledProviders: 'facebook,twitter,googleplus,linkedin,microsoft'
+        }
+    </script>
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -28,6 +35,8 @@
                     <li>@Html.ActionLink("People", "Index", "People")</li>
                     <li>@Html.ActionLink("Acerca de", "About", "Home")</li>
                     <li>@Html.ActionLink("Contacto", "Contact", "Home")</li>
+                    <li><a class="btn btn-default" onclick="muestraLogin()">Login</a></li>
+                    <li><a class="btn btn-default">Registro</a></li>
                 </ul>
             </div>
         </div>
@@ -36,6 +45,40 @@
         @RenderBody()
         <hr />
         <footer>
+            <script type='text/javascript'></script>
+            <div id="componentDiv"></div>
+            <script type="text/javascript">
+                gigya.socialize.showLoginUI(login_params);
+            </script>
+            <div id='commentsDiv'></div>
+            <script type='text/javascript'>
+                var params = {
+                    categoryID: 'iokece',
+                    streamID: '',
+                    version: 2,
+                    containerID: 'commentsDiv',
+                    cid: '',
+                    enabledShareProviders: 'facebook,twitter,linkedin'
+                }
+                gigya.comments.showCommentsUI(params);
+            </script>
+            <script>
+                function muestraLogin()
+                {
+                    var login_params =
+                        {
+                            version: 2
+                            , showTermsLink: 'false'
+                            , height: 230
+                            , width: 310
+                            , UIConfig: '<config><body><controls><snbuttons buttonsize="30" /></controls></body></config>'
+                            , buttonsStyle: 'fullLogoColored'
+                            , autoDetectUserProviders: ''
+                        }
+
+                    gigya.socialize.showLoginUI(login_params);
+                }
+            </script>
             <p>&copy; @DateTime.Now.Year - Mi aplicación ASP.NET</p>
         </footer>
     </div>
