@@ -11,7 +11,7 @@
     <script type="text/javascript" src="http://cdn.gigya.com/js/gigya.js?apiKey=3_qh2-rL1Nm_DVRDkaNjeIwGY4L5SVHmlowSf5LHFfnsi9AiEK6c4TbUIyiQ85NmfX">
         {
             siteName: 'asdf',
-            enabledProviders: 'facebook,twitter,googleplus,linkedin,microsoft'
+            enabledProviders: 'facebook,twitter,googleplus,linkedin,microsoft,yahoo'
         }
     </script>
 </head>
@@ -29,14 +29,15 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Inicio", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Hw","Index","Hw")</li>
+                    <li>@Html.ActionLink("Hw", "Index", "Hw")</li>
                     <li>@Html.ActionLink("Welcome", "Welcome/Pepe/5", "Hw")</li>
                     <li>@Html.ActionLink("Movies", "Index", "Movies")</li>
                     <li>@Html.ActionLink("People", "Index", "People")</li>
                     <li>@Html.ActionLink("Acerca de", "About", "Home")</li>
                     <li>@Html.ActionLink("Contacto", "Contact", "Home")</li>
-                    <li><a class="btn btn-default" onclick="muestraLogin()">Login</a></li>
-                    <li><a class="btn btn-default">Registro</a></li>
+                    <li><a id="btnlog" class="btn btn-default" onclick="muestraLogin()">Login</a></li>
+                    <li><a id="btnreg" class="btn btn-default">Registro</a></li>
+                    <li><a id="btnout" class="btn btn-default hidden" onclick="logout()">Logout</a></li>
                 </ul>
             </div>
         </div>
@@ -60,24 +61,55 @@
                     cid: '',
                     enabledShareProviders: 'facebook,twitter,linkedin'
                 }
-                gigya.comments.showCommentsUI(params);
             </script>
             <script>
-                function muestraLogin()
-                {
-                    var login_params =
-                        {
-                            version: 2
-                            , showTermsLink: 'false'
-                            , height: 230
-                            , width: 310
-                            , UIConfig: '<config><body><controls><snbuttons buttonsize="30" /></controls></body></config>'
-                            , buttonsStyle: 'fullLogoColored'
-                            , autoDetectUserProviders: ''
-                        }
-
+                var login_params =
+                    {
+                        version: 2
+                        , showTermsLink: 'false'
+                        , height: 230
+                        , width: 310
+                        , UIConfig: '<config><body><controls><snbuttons buttonsize="30" /></controls></body></config>'
+                        , buttonsStyle: 'fullLogoColored'
+                        , autoDetectUserProviders: ''
+                    }
+                function getAccountInfoHandler(responseObj) {
+                    console.log(responseObj);
+                }
+                function muestraLogin() {
                     gigya.socialize.showLoginUI(login_params);
                 }
+                function logout() {
+                    gigya.socialize.logout();
+                }
+                function loginEventHandler(eventObj) {
+                    var btnLog = document.getElementById("btnlog");
+                    var btnReg = document.getElementById("btnreg");
+                    var btnOut = document.getElementById("btnout");
+                    
+                    btnLog.classList.add("hidden");
+                    btnReg.classList.add("hidden");
+                    btnOut.classList.remove("hidden");
+
+                    gigya.comments.showCommentsUI(params);
+
+                }
+                function logoutEventHandler(eventObj) {
+                    console.log("User has logged-out");
+                    var btnLog = document.getElementById("btnlog");
+                    var btnReg = document.getElementById("btnreg");
+                    var btnOut = document.getElementById("btnout");
+                    var chat = document.getElementById("commentsDiv");
+
+                    btnLog.classList.remove("hidden");
+                    btnReg.classList.remove("hidden");
+                    btnOut.classList.add("hidden");
+                    chat.classList.add("hidden");
+                }
+                gigya.accounts.addEventHandlers({
+                    onLogin: loginEventHandler,
+                    onLogout: logoutEventHandler
+                });
             </script>
             <p>&copy; @DateTime.Now.Year - Mi aplicación ASP.NET</p>
         </footer>
